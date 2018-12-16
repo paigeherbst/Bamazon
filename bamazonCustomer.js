@@ -35,11 +35,8 @@ function startPrompt() {
     });
 }
 
-//=================================Inventory===============================
-
 function inventory() {
 
-    // instantiate
     var table = new Table({
         head: ['ID', 'Item', 'Department', 'Price', 'Stock'],
         colWidths: [10, 30, 30, 30, 30]
@@ -47,10 +44,7 @@ function inventory() {
 
     listInventory();
 
-    // table is an Array, so you can `push`, `unshift`, `splice` and friends
     function listInventory() {
-
-        //Variable creation from DB connection
 
         connection.query("SELECT * FROM products", function(err, res) {
             for (var i = 0; i < res.length; i++) {
@@ -153,9 +147,6 @@ function confirmPrompt(newStock, purchaseId) {
 
     }]).then(function(userConfirm) {
         if (userConfirm.confirmPurchase === true) {
-
-            //if user confirms purchase, update mysql database with new stock quantity by subtracting user quantity purchased.
-
             connection.query("UPDATE products SET ? WHERE ?", [{
                 stock_quantity: newStock
             }, {
